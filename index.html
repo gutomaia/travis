@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>travis by medecau</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>travis</h1>
+        <p>Travis-CI service api wrapper for python</p>
+
+        <p class="view"><a href="https://github.com/medecau/travis">View the Project on GitHub <small>medecau/travis</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/medecau/travis/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/medecau/travis/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/medecau/travis">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>Install:</h2>
+
+<pre><code>pip install travis
+</code></pre>
+
+<h2>Usage:</h2>
+
+<pre><code>import travis
+repo = travis.show('travis-ci', 'travis-ci')
+print repo.last.stable
+</code></pre>
+
+<h2>Documentation:</h2>
+
+<h3><strong>repositories ()</strong></h3>
+
+<p>List of the latest Repo()s being tested</p>
+
+<h3><strong>show (owner, repo, build=None)</strong></h3>
+
+<p>Returns a Repo()</p>
+
+<p>If a build number is provided then a Build() object is returned instead</p>
+
+<h3><strong>builds (owner, repo)</strong></h3>
+
+<p>Returns a list of Build()s for a given repo</p>
+
+<h3><strong>get_builds ()</strong></h3>
+
+<p><em>meant for internal use</em></p>
+
+<p>Works like <strong>builds()</strong> but takes the slug has a parameter</p>
+
+<h3><strong>Repo (dict())</strong></h3>
+
+<ul>
+<li>description</li>
+<li>id</li>
+<li>last_build_duration</li>
+<li>last_build_finished_at</li>
+<li>last_build_id</li>
+<li>last_build_language</li>
+<li>last_build_number</li>
+<li>last_build_result</li>
+<li>last_build_started_at</li>
+<li>last_build_status</li>
+<li>public_key</li>
+<li>slug</li>
+<li>builds</li>
+<li>last - <em>last Build() of the builds list</em>
+</li>
+<li>stable - <em>Build().passed value of the last Build() in builds</em>
+</li>
+</ul><h3><strong>Build (dict())</strong></h3>
+
+<ul>
+<li>branch</li>
+<li>commit</li>
+<li>duration</li>
+<li>event_type</li>
+<li>finished_at</li>
+<li>id</li>
+<li>message</li>
+<li>number</li>
+<li>repository_id</li>
+<li>result</li>
+<li>started_at</li>
+<li>state</li>
+<li>passed - a boolean inverse of the result in value</li>
+</ul><h3><strong>Cute (dict())</strong></h3>
+
+<p><em>meant for internal use</em></p>
+
+<p>Both Repo() and Build() are based on this class</p>
+
+<p>It receives a dict and makes all the keys available as attributes</p>
+
+<h2>Bugs &amp; Co.</h2>
+
+<p>If you find bugs or new features that are not implemented you can:</p>
+
+<ul>
+<li><a href="https://github.com/medecau/travis/fork">Fork and implement the changes</a></li>
+<li><a href="https://github.com/medecau/travis/fork">Fork and write a test that fails but shouldn't</a></li>
+<li><a href="https://github.com/medecau/travis/issues">Submit an issue in github</a></li>
+</ul><h2>Aknowledgment</h2>
+
+<p><a href="https://github.com/kennethreitz">Kenneth Reitz</a> for being awesome and showing how to do things right.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/medecau">medecau</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>

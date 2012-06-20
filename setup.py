@@ -18,6 +18,7 @@ setup(
     author_email='medecau@gmail.com',
     url='https://github.com/medecau/travis',
     license=license,
+    py_modules=['travis'],
     packages=find_packages(exclude=('tests')),
     install_requires=['requests'],
     test_suite='tests',

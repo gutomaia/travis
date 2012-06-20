@@ -4,9 +4,9 @@
 
 ## Usage:
 
-	import travis
+    import travis
     repo = travis.show('travis-ci', 'travis-ci')
-	print repo.last.stable
+    print repo.last.stable
 
 
 ## Documentation:

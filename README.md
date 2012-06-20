@@ -1,32 +1,41 @@
-# travis
+## Install:
 
-travis is Travis-CI service api wrapper for python
-
+    pip install travis
 
 ## Usage:
 
 	import travis
-
-	print show('travis-ci', 'travis-ci').last.stable
+    repo = travis.show('travis-ci', 'travis-ci')
+	print repo.last.stable
 
 
 ## Documentation:
 
-### **repositories()**
-list of the latest repos being tested
+### **repositories ()**
 
-### **show(owner, repo, build=None)**
-returns either a repository object
-if a build number is provided then a build object is returned
+List of the latest Repo()s being tested
 
-### **builds(owner, repo)**
-returns a list of builds for a given repo
 
-### **get_builds()**
+### **show (owner, repo, build=None)**
+
+Returns a Repo()
+
+If a build number is provided then a Build() object is returned instead
+
+
+### **builds (owner, repo)**
+
+Returns a list of Build()s for a given repo
+
+
+### **get_builds ()**
+
 *meant for internal use*
-works like **builds()**
 
-### **Repo(dict())**
+Works like **builds()** but takes the slug has a parameter
+
+
+### **Repo (dict())**
 
 * description
 * id
@@ -41,11 +50,11 @@ works like **builds()**
 * public_key
 * slug
 * builds
-* last
-* stable
+* last - *last Build() of the builds list*
+* stable - *Build().passed value of the last Build() in builds*
 
 
-### **Build(dict())**
+### **Build (dict())**
 
 * branch
 * commit
@@ -59,23 +68,27 @@ works like **builds()**
 * result
 * started_at
 * state
-* passed
+* passed - a boolean inverse of the result in value
 
-### **Cute(dict())**
+
+### **Cute (dict())**
+
 *meant for internal use*
-both Repo() and Build() are based on this class
-it receives a dict and makes all the keys available as attributes
+
+Both Repo() and Build() are based on this class
+
+It receives a dict and makes all the keys available as attributes
 
 
 ## Bugs & Co.
 
 If you find bugs or new features that are not implemented you can:
 
- * Fork and implement the changes
- * Fork and write a test that fails but shouldn't
- * Submit an issue in github
+ * [Fork and implement the changes](https://github.com/medecau/travis/fork)
+ * [Fork and write a test that fails but shouldn't](https://github.com/medecau/travis/fork)
+ * [Submit an issue in github](https://github.com/medecau/travis/issues)
 
 
 ## Aknowledgment
 
-Kenneth Reitz for being awesome and showing how to do things right
+[Kenneth Reitz](https://github.com/kennethreitz) for being awesome and showing how to do things right.

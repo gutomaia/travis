@@ -16,7 +16,7 @@ setup(
     long_description=readme,
     author='Pedro Rodrigues',
     author_email='medecau@gmail.com',
-    url='https://github.com/medecau/travis',
+    url='http://medecau.github.com/travis/',
     license=license,
     py_modules=['travis'],
     packages=find_packages(exclude=('tests')),

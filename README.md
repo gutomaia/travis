@@ -28,13 +28,6 @@ If a build number is provided then a Build() object is returned instead
 Returns a list of Build()s for a given repo
 
 
-### **get_builds ()**
-
-*meant for internal use*
-
-Works like **builds()** but takes the slug has a parameter
-
-
 ### **Repo (dict())**
 
 * description
@@ -71,13 +64,9 @@ Works like **builds()** but takes the slug has a parameter
 * passed - a boolean inverse of the result in value
 
 
+## *Meant for internal use*
+### **get_builds ()**
 ### **Cute (dict())**
-
-*meant for internal use*
-
-Both Repo() and Build() are based on this class
-
-It receives a dict and makes all the keys available as attributes
 
 
 ## Bugs & Co.

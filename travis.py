@@ -25,6 +25,9 @@ class Repo(Cute):
     """
         The representation of a repository
     """
+    def __repr__(self):
+        return self.slug
+    
     @property
     def builds(self):
         return get_builds(self.slug)
@@ -47,11 +50,14 @@ class  Build(Cute):
         return not self.result
     
 
-def repositories():
+def repositories(name=None, query=None):
     """
         A list of Repo()s
     """
-    r = request(REPOS)
+    if name or query:
+        r = request(REPOS, params={'owner_name':name, 'search':query})
+    else:
+        r = request(REPOS)
     repos=list()
     for repo in r.json:
         repos.append(Repo(repo))
@@ -59,7 +65,7 @@ def repositories():
 
 def show(owner, repo, build=None):
     """
-        Returns a Repo()or build depending on what you want
+        Returns a Repo() or build depending on what you want
     """
     if build:
         return Build(request(BUILD % (owner, repo, build)).json)
@@ -79,11 +85,11 @@ def get_builds(slug):
         builds.append(Build(build))
     return builds
 
-def request(url):
+def request(url, params=None):
     """
         Returns a request object with some parameters set for all requests
     """
-    r = requests.get(url, allow_redirects=False)
+    r = requests.get(url, params=params, allow_redirects=False)
     if r.ok:
         return r
     else:

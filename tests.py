@@ -12,6 +12,15 @@ class BasicTestSuite(unittest.TestCase):
     def test_repo_list(self):
         repos = travis.repositories()
         self.assertEqual(type(repos), type(list()))
+        
+        repos = travis.repositories('medecau')
+        self.assertEqual(type(repos), type(list()))
+    
+        repos = travis.repositories(query='bcode')
+        self.assertEqual(type(repos), type(list()))
+        
+        repos = travis.repositories(name='medecau', query='bcode')
+        self.assertEqual(type(repos), type(list()))
 
     def test_repo(self):
         repo = travis.show('travis-ci', 'travis-ci')

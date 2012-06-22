@@ -13,13 +13,13 @@ class BasicTestSuite(unittest.TestCase):
         repos = travis.repositories()
         self.assertEqual(type(repos), type(list()))
         
-        repos = travis.repositories('medecau')
+        repos = travis.repositories('travis-ci')
         self.assertEqual(type(repos), type(list()))
     
-        repos = travis.repositories(query='bcode')
+        repos = travis.repositories(query='travis-ci')
         self.assertEqual(type(repos), type(list()))
         
-        repos = travis.repositories(name='medecau', query='bcode')
+        repos = travis.repositories(name='travis-ci', query='travis-ci')
         self.assertEqual(type(repos), type(list()))
 
     def test_repo(self):
@@ -33,6 +33,19 @@ class BasicTestSuite(unittest.TestCase):
     def test_build(self):
         build = travis.show('travis-ci', 'travis-ci')
         self.assertEqual(type(build.last.passed), type(bool()))
+    
+    def test_worker(self):
+        workers = travis.workers()
+        self.assertEqual(type(workers), type(list()))
+    
+    def test_jobs(self):
+        jobs = travis.jobs('builds.php')
+        self.assertEqual(type(jobs), type(list()))
+    
+    def test_job(self):
+        jobs = travis.jobs(job='1680136')
+        self.assertEqual(type(jobs), type(travis.Cute({})))
+    
 
 
 if __name__ == '__main__':

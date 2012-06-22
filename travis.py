@@ -1,18 +1,23 @@
 # -*- coding: utf-8 -*-
 
 import requests
+from json import dumps
 
 SLUG = "%s/%s"
 REPOS = "http://travis-ci.org/repositories.json"
 REPO = "http://travis-ci.org/%s/%s.json"
 BUILDS = "http://travis-ci.org/%s/builds.json"
 BUILD = "http://travis-ci.org/%s/%s/%s.json"
+WORKERS = "http://travis-ci.org/workers.json"
+JOBS = "http://travis-ci.org/jobs.json"
+JOB = "http://travis-ci.org/jobs/%s.json"
 
 class Cute(object):
     """
         Base class to create objects from request().json
     """
     def __init__(self, d):
+        self.d = d
         for k,v in d.items():
             if type(v) == type(dict):
                 setattr(self, k, Cute(v)) # cute dictionaries
@@ -20,6 +25,10 @@ class Cute(object):
                 setattr(self, k, [Cute(x) for x in v]) # cute lists
             else:
                 setattr(self, k, v)
+    
+    @property
+    def cute(self):
+        return dumps(self.d, 2)
 
 class Repo(Cute):
     """
@@ -48,7 +57,14 @@ class  Build(Cute):
     @property
     def passed(self):
         return not self.result
-    
+
+class  Worker(Cute):
+    """
+        The representation of a Worker()
+    """
+    @property
+    def ready(self):
+        return self.state == 'ready'
 
 def repositories(name=None, query=None):
     """
@@ -85,6 +101,25 @@ def get_builds(slug):
         builds.append(Build(build))
     return builds
 
+def workers():
+    r = request(WORKERS)
+    workers = list()
+    for w in r.json:
+        workers.append(Cute(w))
+    return workers
+
+def jobs(queue=None, job=None):
+    if job:
+        r = request(JOB % job)
+        return Cute(r.json)
+    elif queue:
+        r = request(JOBS, params={'queue': queue})
+        jobs = list()
+        for w in r.json:
+            jobs.append(Cute(w))
+        return jobs
+    
+
 def request(url, params=None):
     """
         Returns a request object with some parameters set for all requests
@@ -95,3 +130,4 @@ def request(url, params=None):
     else:
         # RAISE HELL
         pass
+

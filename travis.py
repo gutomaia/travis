@@ -102,6 +102,9 @@ def get_builds(slug):
     return builds
 
 def workers():
+    """
+        A list of Worker()s
+    """
     r = request(WORKERS)
     workers = list()
     for w in r.json:
@@ -109,6 +112,14 @@ def workers():
     return workers
 
 def jobs(queue=None, job=None):
+    """
+        A list of Cute()s representing jobs
+        if job is provided then a Cute() is provided representing the job
+        
+        TODO:
+        jobs provided in the list are not as detailed as when accessed directly
+        The job in the list should probably be a factory
+    """
     if job:
         r = request(JOB % job)
         return Cute(r.json)

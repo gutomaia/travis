@@ -4,13 +4,13 @@ import requests
 from json import dumps
 
 SLUG = "%s/%s"
-REPOS = "http://travis-ci.org/repositories.json"
-REPO = "http://travis-ci.org/%s/%s.json"
-BUILDS = "http://travis-ci.org/%s/builds.json"
-BUILD = "http://travis-ci.org/%s/%s/%s.json"
-WORKERS = "http://travis-ci.org/workers.json"
-JOBS = "http://travis-ci.org/jobs.json"
-JOB = "http://travis-ci.org/jobs/%s.json"
+REPOS = "https://api.travis-ci.org/repositories.json"
+REPO = "https://api.travis-ci.org/repositories/%s/%s.json"
+BUILDS = "https://api.travis-ci.org/repositories/%s/builds.json"
+BUILD = "https://api.travis-ci.org/%s/%s/%s.json"
+WORKERS = "https://api.travis-ci.org/workers.json"
+JOBS = "https://api.travis-ci.org/jobs.json"
+JOB = "https://api.travis-ci.org/jobs/%s.json"
 
 class Cute(object):
     """
@@ -75,7 +75,7 @@ def repositories(name=None, query=None):
     else:
         r = request(REPOS)
     repos=list()
-    for repo in r.json:
+    for repo in r.json():
         repos.append(Repo(repo))
     return repos
 
@@ -84,9 +84,9 @@ def show(owner, repo, build=None):
         Returns a Repo() or build depending on what you want
     """
     if build:
-        return Build(request(BUILD % (owner, repo, build)).json)
+        return Build(request(BUILD % (owner, repo, build)).json())
     else:
-        return Repo(request(REPO % (owner, repo)).json)
+        return Repo(request(REPO % (owner, repo)).json())
 
 def builds(owner, repo):
     """
@@ -97,7 +97,7 @@ def builds(owner, repo):
 def get_builds(slug):
     r = request(BUILDS % slug)
     builds=list()
-    for build in r.json:
+    for build in r.json():
         builds.append(Build(build))
     return builds
 
@@ -122,11 +122,11 @@ def jobs(queue=None, job=None):
     """
     if job:
         r = request(JOB % job)
-        return Cute(r.json)
+        return Cute(r.json())
     elif queue:
         r = request(JOBS, params={'queue': queue})
         jobs = list()
-        for w in r.json:
+        for w in r.json():
             jobs.append(Cute(w))
         return jobs
     

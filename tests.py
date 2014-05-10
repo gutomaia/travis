@@ -37,6 +37,7 @@ class BasicTestSuite(unittest.TestCase):
         build = travis.show('travis-ci', 'travis-ci')
         self.assertEqual(type(build.last.passed), type(bool()))
     
+    @unittest.skip('not supported any more')
     def test_worker(self):
         workers = travis.workers()
         self.assertEqual(type(workers), type(list()))

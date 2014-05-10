@@ -9,16 +9,19 @@ class BasicTestSuite(unittest.TestCase):
     def setUp(self):
         pass
 
-    def test_repo_list(self):
+    def test_repo_list_without_params(self):
         repos = travis.repositories()
         self.assertEqual(type(repos), type(list()))
         
+    def test_repo_list_with_owner(self):
         repos = travis.repositories('travis-ci')
         self.assertEqual(type(repos), type(list()))
     
+    def test_repo_list_with_query(self):
         repos = travis.repositories(query='travis-ci')
         self.assertEqual(type(repos), type(list()))
         
+    def test_repo_list_with_owner_and_query(self):
         repos = travis.repositories(name='travis-ci', query='travis-ci')
         self.assertEqual(type(repos), type(list()))
 

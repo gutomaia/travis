@@ -129,16 +129,17 @@ def jobs(queue=None, job=None):
         for w in r.json():
             jobs.append(Cute(w))
         return jobs
-    
 
 def request(url, params=None):
     """
         Returns a request object with some parameters set for all requests
     """
-    r = requests.get(url, params=params, allow_redirects=False)
+    headers = {
+        "User-Agent": "python-travis",
+    }
+
+    r = requests.get(url, params=params, headers=headers, allow_redirects=False)
     if r.ok:
         return r
     else:
-        # RAISE HELL
-        pass
-
+        raise Exception('Bad Request')
